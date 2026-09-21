@@ -11,7 +11,7 @@
         <div class="hidden flex-col justify-between bg-blue-700 p-12 text-white lg:flex">
             <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay</a>
             <div>
-                <h1 class="max-w-md text-5xl font-semibold leading-tight">Make room for what matters.</h1>
+                <h1 class="max-w-md text-5xl font-semibold leading-tight">Make room for what matters</h1>
                 <p class="mt-6 max-w-md text-lg leading-8 text-blue-100">Plan your work, stay on top of deadlines, and finish each day with more clarity.</p>
             </div>
             <p class="text-sm text-blue-200">A calmer way to manage your tasks.</p>
@@ -35,8 +35,17 @@
                 <div class="my-7 flex items-center gap-4 text-xs text-slate-400"><span class="h-px flex-1 bg-slate-200"></span>OR CONTINUE WITH EMAIL<span class="h-px flex-1 bg-slate-200"></span></div>
                 <form method="POST" action="{{ route('login.attempt') }}" class="space-y-5">
                     @csrf
-                    <div><label for="email" class="mb-2 block text-sm font-medium">Email address</label><input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="email" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="you@example.com"></div>
-                    <div><label for="password" class="mb-2 block text-sm font-medium">Password</label><input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="Enter your password"></div>
+                    <div><label for="email" class="mb-2 block text-sm font-medium">Email address</label><input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="email" class="w-full border rounded-xl border-gray-400 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="you@example.com"></div>
+                    <div>
+                        <label for="password" class="mb-2 block text-sm font-medium">Password</label>
+                        <div class="relative">
+                            <input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-xl border border-gray-400 px-4 py-3 pr-12 focus:border-blue-600 focus:ring-blue-600" placeholder="Enter your password">
+                            <button type="button" data-password-toggle="password" aria-label="Show password" class="absolute inset-y-0 right-0 flex items-center pr-4 text-slate-400 hover:text-slate-600">
+                                <svg data-eye-icon class="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8Z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                <svg data-eye-off-icon class="hidden h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.94 17.94A10.94 10.94 0 0 1 12 20c-7 0-11-8-11-8a20.3 20.3 0 0 1 5.06-6.06M9.9 4.24A10.94 10.94 0 0 1 12 4c7 0 11 8 11 8a20.3 20.3 0 0 1-3.22 4.44M14.12 14.12a3 3 0 1 1-4.24-4.24"></path><path d="M1 1l22 22"></path></svg>
+                            </button>
+                        </div>
+                    </div>
                     <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-blue-600 focus:ring-blue-600"> Remember me</label>
                     <button class="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800">Sign in</button>
                 </form>
