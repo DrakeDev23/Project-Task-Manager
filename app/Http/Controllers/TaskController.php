@@ -14,23 +14,52 @@ class TaskController extends Controller
 {
     public function dashboard()
     {
-        $tasks = $this->authenticatedUser()->tasks()->latest()->get();
+        $user = $this->authenticatedUser();
+
         $today = now()->startOfDay();
 
+        $total = $user->tasks()->count();
+        $inProgress = $user->tasks()->where('status', 'in_progress')->count();
+        $completed = $user->tasks()->where('status', 'completed')->count();
+        $pending = $user->tasks()->where('status', 'pending')->count();
+        $overdue = $user->tasks()->whereNotNull('due_date')->where('due_date', '<', $today)->where('status', '!=', 'completed')->count();
+
+        $recentTasks = $user->tasks()->with('category')->latest()->take(5)->get();
+
+        $upcomingTasks = $user->tasks()
+            ->whereNotNull('due_date')
+            ->where('status', '!=', 'completed')
+            ->where('due_date', '>=', $today)
+            ->orderBy('due_date')
+            ->take(5)
+            ->get();
+
         return view('dashboard', [
-            'tasks' => $tasks,
-            'totalTasks' => $tasks->count(),
-            'pendingTasks' => $tasks->where('status', 'pending')->count(),
-            'completedTasks' => $tasks->where('status', 'completed')->count(),
-            'upcomingTasks' => $tasks->filter(fn (Task $task) => $task->due_date && $task->due_date->greaterThanOrEqualTo($today) && $task->status !== 'completed')->sortBy('due_date')->values(),
+            'totalTasks' => $total,
+            'inProgress' => $inProgress,
+            'completedTasks' => $completed,
+            'pendingTasks' => $pending,
+            'overdue' => $overdue,
+            'recentTasks' => $recentTasks,
+            'upcomingTasks' => $upcomingTasks,
         ]);
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $user = $this->authenticatedUser();
+
+        $query = $user->tasks()->with('category')->orderByRaw("case status when 'completed' then 1 else 0 end")->orderBy('due_date')->latest();
+
+        if ($request->filled('category')) {
+            $query->where('category_id', $request->input('category'));
+        }
+
+        $tasks = $query->paginate(5)->withQueryString();
+
         return view('tasks.index', [
-            'tasks' => $this->authenticatedUser()->tasks()->with('category')->orderByRaw("case status when 'completed' then 1 else 0 end")->orderBy('due_date')->latest()->get(),
-            'categories' => $this->authenticatedUser()->categories()->orderBy('name')->get(),
+            'tasks' => $tasks,
+            'categories' => $user->categories()->orderBy('name')->get(),
         ]);
     }
 
