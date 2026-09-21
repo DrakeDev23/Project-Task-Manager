@@ -10,7 +10,7 @@
     <main class="mx-auto flex min-h-screen max-w-7xl items-center p-6 lg:p-10">
         <section class="grid w-full overflow-hidden rounded-3xl bg-white shadow-2xl shadow-blue-950/10 lg:grid-cols-2">
             <div class="hidden min-h-[720px] flex-col justify-between bg-blue-700 p-12 text-white lg:flex">
-                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay.</a>
+                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay</a>
                 <div><p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Start simply</p><h1 class="max-w-md text-5xl font-semibold leading-tight">Your day, beautifully organized.</h1><p class="mt-6 max-w-md text-lg leading-8 text-blue-100">Capture every task and bring focus back to your work.</p></div>
                 <p class="text-sm text-blue-200">One list. More progress.</p>
             </div>
