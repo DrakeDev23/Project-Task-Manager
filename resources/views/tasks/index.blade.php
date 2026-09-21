@@ -13,7 +13,7 @@
         <aside id="sidebar" class="fixed inset-y-0 left-0 z-40 flex w-64 flex-col overflow-hidden border-r border-slate-200 bg-white transition-[width] duration-300 ease-in-out">
 
             <div class="flex h-20 items-center justify-between border-b border-slate-200 px-5">
-                <a href="{{ route('dashboard') }}" class="nav-text whitespace-nowrap text-2xl font-bold tracking-tight text-blue-700 transition-all duration-200 ease-in-out">Hapsay.</a>
+                <a href="{{ route('dashboard') }}" class="nav-text whitespace-nowrap text-2xl font-bold tracking-tight text-blue-700 transition-all duration-200 ease-in-out">Hapsay</a>
                 <button id="sidebarToggle" type="button" class="shrink-0 rounded-lg p-2 text-slate-500 transition-all duration-300 ease-in-out hover:bg-slate-100 hover:text-slate-900">
                     <svg id="menuIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transition-transform duration-300 ease-in-out" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
@@ -35,6 +35,13 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 004 0M9 5h6"/>
                     </svg>
                     <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Tasks</span>
+                </a>
+
+                <a href="{{ route('calendar') }}" class="nav-item flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                    <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Calendar</span>
                 </a>
 
             </nav>
@@ -134,7 +141,7 @@
 
                         @forelse ($tasks as $task)
 
-                            <details class="group rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
+                            <details id="task-{{ $task->id }}" class="group rounded-2xl bg-white shadow-sm ring-1 ring-slate-200">
 
                                 <summary class="flex cursor-pointer list-none items-center gap-4 p-5">
 

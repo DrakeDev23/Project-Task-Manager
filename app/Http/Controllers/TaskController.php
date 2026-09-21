@@ -31,6 +31,42 @@ class TaskController extends Controller
         ]);
     }
 
+    public function calendar()
+    {
+        $tasks = $this->authenticatedUser()->tasks()->whereNotNull('due_date')->orderBy('due_date')->get();
+
+        return view('tasks.calendar', [
+            'calendarTasks' => $tasks->map(function (Task $task) {
+                $color = match ($task->status) {
+                    'completed' => '#10b981',
+                    'pending' => '#f59e0b',
+                    'in_progress' => '#3b82f6',
+                    default => '#64748b',
+                };
+
+                if ($task->priority === 'high' && $task->status !== 'completed') {
+                    $color = '#ef4444';
+                }
+
+                return [
+                    'id' => $task->id,
+                    'title' => $task->title,
+                    'start' => $task->due_date->toDateString(),
+                    'backgroundColor' => $color,
+                    'borderColor' => $color,
+                    'textColor' => '#ffffff',
+                    'extendedProps' => [
+                        'status' => $task->status,
+                        'priority' => $task->priority,
+                        'description' => $task->description,
+                        'dueDate' => $task->due_date->format('M j, Y'),
+                        'taskUrl' => route('tasks.index') . '#task-' . $task->id,
+                    ],
+                ];
+            })->values(),
+        ]);
+    }
+
     public function store(Request $request): RedirectResponse
     {
         $this->authenticatedUser()->tasks()->create($this->validatedTask($request, false));
