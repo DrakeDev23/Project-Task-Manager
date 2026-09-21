@@ -30,6 +30,9 @@ class AccountSettingsController extends Controller
         if ($data['name'] === $user->name) {
             return back()->with('status', 'Your username is already up to date.');
         }
+        if ($this->hasPendingChange($user, 'username')) {
+            return back()->with('status', 'A confirmation email is already pending for this username change.');
+        }
         $this->createChange($user, 'username', ['name' => $data['name']]);
 
         return back()->with('status', 'Check your email to confirm the username change.');
@@ -41,6 +44,9 @@ class AccountSettingsController extends Controller
             'current_password' => ['required', 'current_password'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
+        if ($this->hasPendingChange($request->user(), 'password')) {
+            return back()->with('status', 'A confirmation email is already pending for this password change.');
+        }
         $this->createChange($request->user(), 'password', ['password_hash' => Hash::make($data['password'])]);
 
         return back()->with('status', 'Check your email to confirm the password change.');
@@ -73,9 +79,17 @@ class AccountSettingsController extends Controller
         return redirect()->route('settings.account')->with('status', 'Your '.$change->type.' has been changed.');
     }
 
+    private function hasPendingChange(User $user, string $type): bool
+    {
+        return AccountChangeRequest::where('user_id', $user->id)
+            ->where('type', $type)
+            ->whereNull('used_at')
+            ->where('expires_at', '>', now())
+            ->exists();
+    }
+
     private function createChange(User $user, string $type, array $payload): void
     {
-        AccountChangeRequest::where('user_id', $user->id)->where('type', $type)->whereNull('used_at')->update(['used_at' => now()]);
         $token = Str::random(64);
         $change = AccountChangeRequest::create([
             'user_id' => $user->id, 'type' => $type, 'payload' => $payload,

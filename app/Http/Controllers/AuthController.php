@@ -47,6 +47,12 @@ class AuthController extends Controller
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
 
+        if (! str_ends_with(strtolower($validated['email']), '@gmail.com')) {
+            return back()->withErrors(['email' => 'Only Gmail addresses are allowed.'])->onlyInput('email');
+        }
+
+        $validated['email'] = strtolower($validated['email']);
+
         $user = User::create($validated);
         Auth::login($user);
         $request->session()->regenerate();

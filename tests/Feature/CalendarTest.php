@@ -13,10 +13,8 @@ class CalendarTest extends TestCase
 
     public function test_authenticated_user_can_view_their_calendar(): void
     {
-        /** @var User $user */
         $user = User::factory()->create();
 
-        /** @var User $otherUser */
         $otherUser = User::factory()->create();
 
         Task::query()->create([

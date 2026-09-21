@@ -16,7 +16,6 @@
 
             <div class="mx-auto max-w-7xl px-6 py-10 lg:px-8">
 
-                {{-- Header --}}
                 <div>
                     <p class="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Dashboard</p>
                     <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Dashboard</h1>
@@ -32,7 +31,6 @@
                     </div>
                 @endif
 
-                {{-- Stats cards --}}
                 <section class="mt-8">
                     <div class="grid gap-6 lg:grid-cols-4">
                         <div class="rounded-2xl bg-white p-6 shadow-sm ring-1 ring-slate-200">
