@@ -18,6 +18,7 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/dashboard', [TaskController::class, 'dashboard'])->name('dashboard');
     Route::get('/tasks', [TaskController::class, 'index'])->name('tasks.index');
+    Route::get('/calendar', [TaskController::class, 'calendar'])->name('calendar');
     Route::post('/tasks', [TaskController::class, 'store'])->name('tasks.store');
     Route::put('/tasks/{task}', [TaskController::class, 'update'])->name('tasks.update');
     Route::delete('/tasks/{task}', [TaskController::class, 'destroy'])->name('tasks.destroy');

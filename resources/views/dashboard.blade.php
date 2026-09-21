@@ -54,6 +54,18 @@
 
                 </a>
 
+                <a href="{{ route('calendar') }}" class="nav-item flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900">
+
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+
+                    <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">
+                        Calendar
+                    </span>
+
+                </a>
+
             </nav>
 
             <div class="border-t border-slate-200 p-4">
@@ -122,9 +134,15 @@
 
                     </div>
 
-                    <a href="{{ route('tasks.index') }}" class="inline-flex items-center justify-center rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white transition hover:bg-blue-800">
-                        Manage tasks
-                    </a>
+                    <div class="flex flex-wrap items-center gap-3">
+                        <a href="{{ route('tasks.index') }}" class="inline-flex items-center justify-center rounded-xl bg-blue-700 px-5 py-3 font-semibold text-white transition hover:bg-blue-800">
+                            Manage tasks
+                        </a>
+
+                        <a href="{{ route('calendar') }}" class="inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-5 py-3 font-semibold text-slate-700 transition hover:bg-slate-50">
+                            View calendar
+                        </a>
+                    </div>
 
                 </div>
 
