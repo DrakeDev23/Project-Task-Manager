@@ -73,6 +73,10 @@
                     <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Categories</span>
                 </a>
 
+                <a href="{{ route('settings.account') }}" class="nav-item flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900">
+                    <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Account settings</span>
+                </a>
+
             </nav>
 
             <div class="border-t border-slate-200 p-4">

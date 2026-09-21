@@ -125,7 +125,7 @@
 
                             <div>
                                 <label for="description" class="mb-1.5 block text-sm font-medium text-slate-700">Description</label>
-                                <textarea id="description" name="description" rows="4" class="w-full rounded-xl border border-slate-200 px-3 py-2.5 focus:border-blue-600 focus:ring-blue-600" placeholder="Optional description for this category">{{ old('description', $editingCategory->description ?? '') }}</textarea>
+                                <textarea id="description" name="description" rows="4" class="w-full rounded-xl border resize-none border-slate-200 px-3 py-2.5 focus:border-blue-600 focus:ring-blue-600" placeholder="Optional description for this category">{{ old('description', $editingCategory->description ?? '') }}</textarea>
                             </div>
 
                             <div class="flex flex-wrap gap-3">

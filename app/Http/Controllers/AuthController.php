@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Notifications\Security\SecurityAlertNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,7 @@ class AuthController extends Controller
         }
 
         $request->session()->regenerate();
+        $request->user()->notify(SecurityAlertNotification::newLogin($request));
 
         return redirect()->intended(route('dashboard'));
     }
@@ -48,6 +50,7 @@ class AuthController extends Controller
         $user = User::create($validated);
         Auth::login($user);
         $request->session()->regenerate();
+        $user->sendEmailVerificationNotification();
 
         return redirect()->route('dashboard');
     }
@@ -92,6 +95,7 @@ class AuthController extends Controller
 
         Auth::login($user, true);
         $request->session()->regenerate();
+        $user->notify(SecurityAlertNotification::newLogin($request));
 
         return redirect()->route('dashboard');
     }
