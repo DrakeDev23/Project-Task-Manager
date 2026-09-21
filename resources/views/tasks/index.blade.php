@@ -44,6 +44,13 @@
                     <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Calendar</span>
                 </a>
 
+                <a href="{{ route('categories.index') }}" class="nav-item flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6.75A2.75 2.75 0 016.75 4h10.5A2.75 2.75 0 0120 6.75v10.5A2.75 2.75 0 0117.25 20H6.75A2.75 2.75 0 014 17.25V6.75zm3.25 1.5h9.5M7.25 12h9.5m-9.5 4h5.5"/>
+                    </svg>
+                    <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Categories</span>
+                </a>
+
             </nav>
 
             <div class="border-t border-slate-200 p-4">
@@ -132,6 +139,16 @@
 
                             </div>
 
+                            <div>
+                                <label class="mb-1.5 block text-sm font-medium" for="category_id">Category</label>
+                                <select class="w-full rounded-xl border-slate-200 px-3 py-2.5 focus:border-blue-600 focus:ring-blue-600" id="category_id" name="category_id">
+                                    <option value="">Uncategorized</option>
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+
                             <button type="submit" class="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800">Create task</button>
                         </form>
 
@@ -178,7 +195,7 @@
                                             <textarea class="w-full rounded-xl border border-gray-500 px-3 py-2.5 resize-none focus:border-blue-600 focus:ring-blue-600" name="description" rows="3">{{ $task->description }}</textarea>
                                         </div>
 
-                                        <div class="grid gap-3 sm:grid-cols-3">
+                                        <div class="grid gap-3 sm:grid-cols-2">
 
                                             <div>
                                                 <label class="mb-1.5 block text-sm font-medium">Status</label>
@@ -198,11 +215,23 @@
                                                 </select>
                                             </div>
 
+                                        </div>
+
+                                        <div class="grid gap-3 sm:grid-cols-2">
                                             <div>
                                                 <label class="mb-1.5 block text-sm font-medium">Due date</label>
                                                 <input class="w-full rounded-xl border-slate-200 px-3 py-2.5" name="due_date" type="date" value="{{ $task->due_date?->format('Y-m-d') }}">
                                             </div>
 
+                                            <div>
+                                                <label class="mb-1.5 block text-sm font-medium">Category</label>
+                                                <select class="w-full rounded-xl border-slate-200 px-3 py-2.5" name="category_id">
+                                                    <option value="">Uncategorized</option>
+                                                    @foreach ($categories as $category)
+                                                        <option value="{{ $category->id }}" @selected($task->category_id === $category->id)>{{ $category->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
                                         </div>
 
                                         <div class="flex flex-wrap justify-between gap-3">

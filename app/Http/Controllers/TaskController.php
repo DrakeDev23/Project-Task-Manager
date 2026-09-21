@@ -7,6 +7,7 @@ use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class TaskController extends Controller
 {
@@ -27,7 +28,8 @@ class TaskController extends Controller
     public function index()
     {
         return view('tasks.index', [
-            'tasks' => $this->authenticatedUser()->tasks()->orderByRaw("case status when 'completed' then 1 else 0 end")->orderBy('due_date')->latest()->get(),
+            'tasks' => $this->authenticatedUser()->tasks()->with('category')->orderByRaw("case status when 'completed' then 1 else 0 end")->orderBy('due_date')->latest()->get(),
+            'categories' => $this->authenticatedUser()->categories()->orderBy('name')->get(),
         ]);
     }
 
@@ -95,6 +97,11 @@ class TaskController extends Controller
         $rules = [
             'title' => ['required', 'string', 'max:255'],
             'description' => ['nullable', 'string'],
+            'category_id' => [
+                'nullable',
+                'integer',
+                Rule::exists('categories', 'id')->where(fn ($query) => $query->where('user_id', Auth::id())),
+            ],
             'priority' => ['required', 'in:low,medium,high'],
             'due_date' => ['nullable', 'date'],
         ];

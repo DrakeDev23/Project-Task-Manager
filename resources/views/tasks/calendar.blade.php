@@ -45,6 +45,13 @@
                     <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Calendar</span>
                 </a>
 
+                <a href="{{ route('categories.index') }}" class="nav-item flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold text-slate-600 transition-all duration-200 hover:bg-slate-100 hover:text-slate-900">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6.75A2.75 2.75 0 016.75 4h10.5A2.75 2.75 0 0120 6.75v10.5A2.75 2.75 0 0117.25 20H6.75A2.75 2.75 0 014 17.25V6.75zm3.25 1.5h9.5M7.25 12h9.5m-9.5 4h5.5"/>
+                    </svg>
+                    <span class="nav-text whitespace-nowrap transition-all duration-200 ease-in-out">Categories</span>
+                </a>
+
             </nav>
 
             <div class="border-t border-slate-200 p-4">
@@ -156,74 +163,6 @@
                 </div>
             </div>
         </div>
-
-        <script>
-            document.addEventListener('DOMContentLoaded', function () {
-                const calendarEl = document.getElementById('calendar');
-                const modal = document.getElementById('taskModal');
-                const title = document.getElementById('taskModalTitle');
-                const status = document.getElementById('taskModalStatus');
-                const priority = document.getElementById('taskModalPriority');
-                const dueDate = document.getElementById('taskModalDate');
-                const description = document.getElementById('taskModalDescription');
-                const link = document.getElementById('taskModalLink');
-
-                const closeModal = () => {
-                    modal.classList.add('hidden');
-                    modal.classList.remove('flex');
-                };
-
-                document.getElementById('closeTaskModal').addEventListener('click', closeModal);
-                document.getElementById('closeTaskModalButton').addEventListener('click', closeModal);
-                modal.addEventListener('click', function (event) {
-                    if (event.target === modal) {
-                        closeModal();
-                    }
-                });
-
-                const calendarEvents = JSON.parse(calendarEl.dataset.events || '[]');
-
-                const calendar = new FullCalendar.Calendar(calendarEl, {
-                    initialView: 'dayGridMonth',
-                    height: 'auto',
-                    headerToolbar: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'dayGridMonth,listMonth'
-                    },
-                    buttonText: {
-                        today: 'Today',
-                        month: 'Month',
-                        list: 'List'
-                    },
-                    events: calendarEvents,
-                    eventDisplay: 'block',
-                    displayEventTime: false,
-                    eventClick: function(info) {
-                        const props = info.event.extendedProps;
-                        const taskUrl = props.taskUrl || '#';
-
-                        title.textContent = info.event.title;
-                        status.textContent = (props.status || 'Unknown').replace('_', ' ');
-                        priority.textContent = (props.priority || 'Unknown');
-                        dueDate.textContent = props.dueDate || info.event.start?.toLocaleDateString() || 'No date';
-                        description.textContent = props.description || 'No description provided.';
-                        link.href = taskUrl;
-
-                        modal.classList.remove('hidden');
-                        modal.classList.add('flex');
-                    },
-                    eventDidMount: function(info) {
-                        info.el.title = info.event.title;
-                    },
-                    locale: 'en',
-                    contentHeight: 680,
-                    stickyHeaderDates: true,
-                });
-
-                calendar.render();
-            });
-        </script>
     @endif
 
 </body>
