@@ -7,12 +7,11 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-/** A reusable task-mail notification for reminders, assignment, and completion events. */
 class TaskNotification extends Notification
 {
     use Queueable;
 
-    public function __construct(public Task $task, public string $type, public string $heading, public string $message) {}
+    public function __construct(public Task $task, public string $type, public string $heading, public string $body) {}
 
     public function via(object $notifiable): array
     {
@@ -23,9 +22,9 @@ class TaskNotification extends Notification
     {
         $task = $this->task;
         $heading = $this->heading;
-        $message = $this->message;
-        $url = route('tasks.index').'#task-'.$task->id;
+        $body = $this->body;
+        $url = route('tasks.index').' #task-'.$task->id;
 
-        return (new MailMessage)->subject($heading)->view(['emails.tasks.task', 'emails.tasks.task-text'], compact('task', 'heading', 'message', 'url'));
+        return (new MailMessage)->subject($heading)->view(['emails.tasks.task', 'emails.tasks.task-text'], compact('task', 'heading', 'body', 'url'));
     }
 }

@@ -16,7 +16,6 @@
 
             <div class="mx-auto max-w-4xl px-6 py-10 lg:px-8">
 
-                {{-- Header --}}
                 <div>
                     <p class="text-sm font-semibold uppercase tracking-[0.16em] text-blue-700">Your account</p>
                     <h1 class="mt-2 text-3xl font-semibold tracking-tight text-slate-900">Account settings</h1>
@@ -34,7 +33,6 @@
 
                 @if ($errors->any())
                     <div class="mt-6 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
-                        <p class="font-semibold">Please fix the following:</p>
                         <ul class="mt-1.5 list-inside list-disc space-y-0.5">
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -43,10 +41,8 @@
                     </div>
                 @endif
 
-                {{-- Settings cards --}}
                 <section class="mt-8 grid gap-6 lg:grid-cols-2">
 
-                    {{-- Username --}}
                     <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
                         <h2 class="text-lg font-semibold text-slate-900">Username</h2>
                         <p class="mt-1.5 text-sm text-slate-500">Changes take effect only after you confirm the email we send.</p>
@@ -78,7 +74,6 @@
                         </form>
                     </div>
 
-                    {{-- Password --}}
                     <div class="rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
                         <h2 class="text-lg font-semibold text-slate-900">Password</h2>
                         <p class="mt-1.5 text-sm text-slate-500">Your current password is required. The new password is not applied until email confirmation.</p>
