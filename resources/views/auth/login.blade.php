@@ -3,16 +3,15 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Sign in · Hapsay</title>
+    <title>Hapsay</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="min-h-screen bg-slate-50 text-slate-900">
     <main class="mx-auto flex min-h-screen max-w-7xl items-center p-6 lg:p-10">
         <section class="grid w-full overflow-hidden rounded-3xl bg-white shadow-2xl shadow-blue-950/10 lg:grid-cols-2">
             <div class="hidden min-h-[680px] flex-col justify-between bg-blue-700 p-12 text-white lg:flex">
-                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay.</a>
+                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay</a>
                 <div>
-                    <p class="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-blue-200">Personal task manager</p>
                     <h1 class="max-w-md text-5xl font-semibold leading-tight">Make room for what matters.</h1>
                     <p class="mt-6 max-w-md text-lg leading-8 text-blue-100">Plan your work, stay on top of deadlines, and finish each day with more clarity.</p>
                 </div>
