@@ -6,45 +6,43 @@
     <title>Hapsay</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="min-h-screen bg-slate-50 text-slate-900">
-    <main class="mx-auto flex min-h-screen max-w-7xl items-center p-6 lg:p-10">
-        <section class="grid w-full overflow-hidden rounded-3xl bg-white shadow-2xl shadow-blue-950/10 lg:grid-cols-2">
-            <div class="hidden min-h-[680px] flex-col justify-between bg-blue-700 p-12 text-white lg:flex">
-                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay</a>
-                <div>
-                    <h1 class="max-w-md text-5xl font-semibold leading-tight">Make room for what matters.</h1>
-                    <p class="mt-6 max-w-md text-lg leading-8 text-blue-100">Plan your work, stay on top of deadlines, and finish each day with more clarity.</p>
-                </div>
-                <p class="text-sm text-blue-200">A calmer way to manage your tasks.</p>
+<body class="text-slate-900">
+    <main class="grid h-screen w-full lg:grid-cols-2">
+        <div class="hidden flex-col justify-between bg-blue-700 p-12 text-white lg:flex">
+            <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight">Hapsay</a>
+            <div>
+                <h1 class="max-w-md text-5xl font-semibold leading-tight">Make room for what matters.</h1>
+                <p class="mt-6 max-w-md text-lg leading-8 text-blue-100">Plan your work, stay on top of deadlines, and finish each day with more clarity.</p>
             </div>
-            <div class="flex min-h-[680px] items-center justify-center p-7 sm:p-12">
-                <div class="w-full max-w-md">
-                    <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight text-blue-700 lg:hidden">Hapsay.</a>
-                    <h2 class="mt-10 text-3xl font-semibold tracking-tight">Welcome back</h2>
-                    <p class="mt-2 text-slate-500">Sign in to continue organizing your day.</p>
+            <p class="text-sm text-blue-200">A calmer way to manage your tasks.</p>
+        </div>
+        <div class="flex items-center justify-center bg-white p-7 sm:p-12">
+            <div class="w-full max-w-md">
+                <a href="{{ route('login') }}" class="text-2xl font-bold tracking-tight text-blue-700 lg:hidden">Hapsay.</a>
+                <h2 class="mt-10 text-3xl font-semibold tracking-tight">Welcome back</h2>
+                <p class="mt-2 text-slate-500">Sign in to continue organizing your day.</p>
 
-                    @if ($errors->any())
-                        <div class="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-                            {{ $errors->first() }}
-                        </div>
-                    @endif
+                @if ($errors->any())
+                    <div class="mt-6 rounded-xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
+                        {{ $errors->first() }}
+                    </div>
+                @endif
 
-                    <a href="{{ route('auth.google') }}" class="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 px-4 py-3 font-medium transition hover:bg-slate-50">
-                        <svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.55-.2-2.28H12v4.32h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.43Z"/><path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.75 9.75 0 0 0 12 21.6Z"/><path fill="#FBBC05" d="M6.54 13.68a5.87 5.87 0 0 1 0-3.36V7.79H3.3a9.6 9.6 0 0 0 0 8.42l3.24-2.53Z"/><path fill="#EA4335" d="M12 6.29c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.83 3.3 14.62 2.4 12 2.4a9.75 9.75 0 0 0-8.7 5.39l3.24 2.53C7.31 8.01 9.46 6.29 12 6.29Z"/></svg>
-                        Continue with Google
-                    </a>
-                    <div class="my-7 flex items-center gap-4 text-xs text-slate-400"><span class="h-px flex-1 bg-slate-200"></span>OR CONTINUE WITH EMAIL<span class="h-px flex-1 bg-slate-200"></span></div>
-                    <form method="POST" action="{{ route('login.attempt') }}" class="space-y-5">
-                        @csrf
-                        <div><label for="email" class="mb-2 block text-sm font-medium">Email address</label><input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="email" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="you@example.com"></div>
-                        <div><label for="password" class="mb-2 block text-sm font-medium">Password</label><input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="Enter your password"></div>
-                        <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-blue-600 focus:ring-blue-600"> Remember me</label>
-                        <button class="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800">Sign in</button>
-                    </form>
-                    <p class="mt-8 text-center text-sm text-slate-500">New to Hapsay? <a href="{{ route('register') }}" class="font-semibold text-blue-700 hover:text-blue-800">Create an account</a></p>
-                </div>
+                <a href="{{ route('auth.google') }}" class="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 px-4 py-3 font-medium transition hover:bg-slate-50">
+                    <svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.55-.2-2.28H12v4.32h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.43Z"/><path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.75 9.75 0 0 0 12 21.6Z"/><path fill="#FBBC05" d="M6.54 13.68a5.87 5.87 0 0 1 0-3.36V7.79H3.3a9.6 9.6 0 0 0 0 8.42l3.24-2.53Z"/><path fill="#EA4335" d="M12 6.29c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.83 3.3 14.62 2.4 12 2.4a9.75 9.75 0 0 0-8.7 5.39l3.24 2.53C7.31 8.01 9.46 6.29 12 6.29Z"/></svg>
+                    Continue with Google
+                </a>
+                <div class="my-7 flex items-center gap-4 text-xs text-slate-400"><span class="h-px flex-1 bg-slate-200"></span>OR CONTINUE WITH EMAIL<span class="h-px flex-1 bg-slate-200"></span></div>
+                <form method="POST" action="{{ route('login.attempt') }}" class="space-y-5">
+                    @csrf
+                    <div><label for="email" class="mb-2 block text-sm font-medium">Email address</label><input id="email" name="email" type="email" value="{{ old('email') }}" required autofocus autocomplete="email" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="you@example.com"></div>
+                    <div><label for="password" class="mb-2 block text-sm font-medium">Password</label><input id="password" name="password" type="password" required autocomplete="current-password" class="w-full rounded-xl border-slate-200 px-4 py-3 focus:border-blue-600 focus:ring-blue-600" placeholder="Enter your password"></div>
+                    <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-blue-600 focus:ring-blue-600"> Remember me</label>
+                    <button class="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800">Sign in</button>
+                </form>
+                <p class="mt-8 text-center text-sm text-slate-500">New to Hapsay? <a href="{{ route('register') }}" class="font-semibold text-blue-700 hover:text-blue-800">Create an account</a></p>
             </div>
-        </section>
+        </div>
     </main>
 </body>
 </html>
