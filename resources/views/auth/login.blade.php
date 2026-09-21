@@ -27,6 +27,9 @@
                         {{ $errors->first() }}
                     </div>
                 @endif
+                @if (session('status'))
+                    <div class="mt-6 rounded-xl border border-emerald-200 bg-emerald-50 p-4 text-sm text-emerald-700">{{ session('status') }}</div>
+                @endif
 
                 <a href="{{ route('auth.google') }}" class="mt-7 flex w-full items-center justify-center gap-3 rounded-xl border border-slate-200 px-4 py-3 font-medium transition hover:bg-slate-50">
                     <svg class="h-5 w-5" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M21.35 12.23c0-.79-.07-1.55-.2-2.28H12v4.32h5.24a4.48 4.48 0 0 1-1.94 2.94v2.45h3.14c1.84-1.69 2.91-4.18 2.91-7.43Z"/><path fill="#34A853" d="M12 21.6c2.63 0 4.84-.87 6.45-2.36l-3.14-2.45c-.87.58-1.98.92-3.31.92-2.54 0-4.69-1.72-5.46-4.03H3.3v2.53A9.75 9.75 0 0 0 12 21.6Z"/><path fill="#FBBC05" d="M6.54 13.68a5.87 5.87 0 0 1 0-3.36V7.79H3.3a9.6 9.6 0 0 0 0 8.42l3.24-2.53Z"/><path fill="#EA4335" d="M12 6.29c1.43 0 2.71.49 3.72 1.46l2.79-2.79C16.83 3.3 14.62 2.4 12 2.4a9.75 9.75 0 0 0-8.7 5.39l3.24 2.53C7.31 8.01 9.46 6.29 12 6.29Z"/></svg>
@@ -49,6 +52,7 @@
                     <label class="flex items-center gap-2 text-sm text-slate-600"><input type="checkbox" name="remember" value="1" class="rounded border-slate-300 text-blue-600 focus:ring-blue-600"> Remember me</label>
                     <button class="w-full rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white transition hover:bg-blue-800">Sign in</button>
                 </form>
+                <p class="mt-4 text-center text-sm"><a class="font-semibold text-blue-700 hover:text-blue-800" href="{{ route('password.request') }}">Forgot your password?</a></p>
                 <p class="mt-8 text-center text-sm text-slate-500">New to Hapsay? <a href="{{ route('register') }}" class="font-semibold text-blue-700 hover:text-blue-800">Create an account</a></p>
             </div>
         </div>

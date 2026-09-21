@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Notifications\Tasks\TaskNotification;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -62,7 +63,7 @@ class TaskController extends Controller
                         'priority' => $task->priority,
                         'description' => $task->description,
                         'dueDate' => $task->due_date->format('M j, Y'),
-                        'taskUrl' => route('tasks.index') . '#task-' . $task->id,
+                        'taskUrl' => route('tasks.index').'#task-'.$task->id,
                     ],
                 ];
             })->values(),
@@ -79,7 +80,11 @@ class TaskController extends Controller
     public function update(Request $request, Task $task): RedirectResponse
     {
         $this->authorizeTask($task);
+        $wasCompleted = $task->status === 'completed';
         $task->update($this->validatedTask($request));
+        if (! $wasCompleted && $task->status === 'completed') {
+            $task->user->notify(new TaskNotification($task, 'completed', 'Task completed in Hapsay', 'You completed this task.'));
+        }
 
         return redirect()->route('tasks.index')->with('success', 'Task updated successfully.');
     }
