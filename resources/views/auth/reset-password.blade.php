@@ -1,1 +1,34 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Reset password · Hapsay</title>@vite(['resources/css/app.css'])</head><body class="min-h-screen bg-slate-50 text-slate-900"><main class="mx-auto max-w-md p-8 pt-20"><a class="text-2xl font-bold text-blue-700" href="{{ route('login') }}">Hapsay</a><section class="mt-8 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-200"><h1 class="text-2xl font-semibold">Choose a new password</h1><form class="mt-6 space-y-4" method="post" action="{{ route('password.update') }}">@csrf<input type="hidden" name="token" value="{{ $token }}"><input type="hidden" name="email" value="{{ $email }}"><label class="block text-sm font-medium">New password<input class="mt-1 w-full rounded-xl border-slate-300" type="password" name="password" required autocomplete="new-password"></label><label class="block text-sm font-medium">Confirm password<input class="mt-1 w-full rounded-xl border-slate-300" type="password" name="password_confirmation" required autocomplete="new-password"></label>@if($errors->any())<p class="text-sm text-red-600">{{ $errors->first() }}</p>@endif<button class="rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white">Reset password</button></form></section></main></body></html>
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <title>Reset password · Hapsay</title>
+        @vite(['resources/css/app.css'])
+    </head>
+    <body class="min-h-screen bg-slate-50 text-slate-900">
+        <main class="mx-auto max-w-md p-8 pt-20">
+            <a class="text-2xl font-bold text-blue-700" href="{{ route('login') }}">Hapsay</a>
+            <section class="mt-8 rounded-2xl bg-white p-7 shadow-sm ring-1 ring-slate-200">
+                <h1 class="text-2xl font-semibold">Choose a new password</h1>
+                <form class="mt-6 space-y-4" method="post" action="{{ route('password.update') }}">
+                    @csrf
+                    <input type="hidden" name="token" value="{{ $token }}">
+                    <input type="hidden" name="email" value="{{ $email }}">
+                    <label class="block text-sm font-medium">
+                        New password
+                        <input class="mt-1 w-full rounded-xl border h-10 border-gray-500" type="password" name="password" required autocomplete="new-password">
+                    </label>
+                    <label class="block text-sm font-medium">
+                        Confirm password
+                        <input class="mt-1 w-full rounded-xl border h-10 border-gray-500" type="password" name="password_confirmation" required autocomplete="new-password">
+                    </label>
+                    @if($errors->any())
+                        <p class="text-sm text-red-600">{{ $errors->first() }}</p>
+                    @endif
+                    <button class="rounded-xl bg-blue-700 px-4 py-3 font-semibold text-white">Reset password</button>
+                </form>
+            </section>
+        </main>
+    </body>
+</html>
