@@ -8,11 +8,6 @@ use Illuminate\Mail\Markdown;
 use Illuminate\Contracts\Mail\Factory as MailFactory;
 use Illuminate\Support\Facades\Log;
 
-/**
- * ConditionalMailChannel wraps the default MailChannel and suppresses
- * external delivery when prototype mode is enabled and the recipient is
- * not the configured prototype address.
- */
 class ConditionalMailChannel extends BaseMailChannel
 {
     protected $mailer;
@@ -29,7 +24,7 @@ class ConditionalMailChannel extends BaseMailChannel
     {
         $mailMessage = $notification->toMail($notifiable);
 
-        // Resolve recipients using the same logic as BaseMailChannel
+        
         if (is_string($recipients = $notifiable->routeNotificationFor('mail', $notification))) {
             $recipients = [$recipients];
         }
@@ -57,7 +52,6 @@ class ConditionalMailChannel extends BaseMailChannel
         return parent::send($notifiable, $notification);
     }
 
-    // Expose protected method from BaseMailChannel via same logic here.
     protected function getRecipients($notifiable, $notification, $message)
     {
         if (is_string($recipients = $notifiable->routeNotificationFor('mail', $notification))) {

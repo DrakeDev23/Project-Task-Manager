@@ -14,14 +14,9 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot(): void
     {
-        // Replace the default MailChannel with a ConditionalMailChannel that
-        // suppresses external delivery except for the configured prototype address.
         $this->app->singleton(BaseMailChannel::class, function ($app) {
-            // Resolve the MailFactory implementation (binds to Illuminate\Mail\MailManager).
             $mailFactory = $app->make(\Illuminate\Contracts\Mail\Factory::class);
 
-            // Construct a Markdown renderer instance if the container binding
-            // is not available (ensures this works in minimal dev setups).
             $markdownConfig = $app['config']->get('mail.markdown', []);
             $markdown = new \Illuminate\Mail\Markdown($app['view'], $markdownConfig);
 
