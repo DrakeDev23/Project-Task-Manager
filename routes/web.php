@@ -49,11 +49,9 @@ Route::middleware('auth')->group(function () {
     Route::put('/categories/{category}', [CategoryController::class, 'update'])->name('categories.update');
     Route::delete('/categories/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
-    Route::middleware('verified')->group(function () {
-        Route::get('/settings/account', [AccountSettingsController::class, 'edit'])->name('settings.account');
-        Route::post('/settings/username', [AccountSettingsController::class, 'requestUsernameChange'])->middleware('throttle:3,10')->name('settings.username.request');
-        Route::post('/settings/password', [AccountSettingsController::class, 'requestPasswordChange'])->middleware('throttle:3,10')->name('settings.password.request');
-    });
+    Route::get('/settings/account', [AccountSettingsController::class, 'edit'])->name('settings.account');
+    Route::post('/settings/username', [AccountSettingsController::class, 'requestUsernameChange'])->middleware('throttle:3,10')->name('settings.username.request');
+    Route::post('/settings/password', [AccountSettingsController::class, 'requestPasswordChange'])->middleware('throttle:3,10')->name('settings.password.request');
 
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });

@@ -32,6 +32,9 @@ class SecurityAlertNotification extends Notification
         $event = $this->event;
         $details = $this->details;
 
-        return (new MailMessage)->subject($event)->view(['emails.security.alert', 'emails.security.alert-text'], compact('event', 'details'));
+        return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
+            ->subject($event)
+            ->view(['emails.security.alert', 'emails.security.alert-text'], compact('event', 'details'));
     }
 }

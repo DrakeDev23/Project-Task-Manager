@@ -12,6 +12,7 @@ class VerifyEmailNotification extends VerifyEmail
         $url = $this->verificationUrl($notifiable);
 
         return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->subject('Verify your Hapsay email address')
             ->view(['emails.auth.verify', 'emails.auth.verify-text'], compact('url'));
     }
