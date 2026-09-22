@@ -33,6 +33,16 @@ class AccountSettingsController extends Controller
         if ($this->hasPendingChange($user, 'username')) {
             return back()->with('status', 'A confirmation email is already pending for this username change.');
         }
+
+        if ($user->email_verified_at) {
+            $user->update(['name' => $data['name']]);
+            $user->notify(new SecurityAlertNotification('Your Hapsay username was changed', ['When' => now()->toDayDateTimeString().' '.config('app.timezone')]));
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            return back()->with('status', 'Your username has been changed.');
+        }
+
         $this->createChange($user, 'username', ['name' => $data['name']]);
 
         return back()->with('status', 'Check your email to confirm the username change.');
@@ -44,10 +54,23 @@ class AccountSettingsController extends Controller
             'current_password' => ['required', 'current_password'],
             'password' => ['required', 'confirmed', Password::defaults()],
         ]);
-        if ($this->hasPendingChange($request->user(), 'password')) {
+        $user = $request->user();
+
+        if ($this->hasPendingChange($user, 'password')) {
             return back()->with('status', 'A confirmation email is already pending for this password change.');
         }
-        $this->createChange($request->user(), 'password', ['password_hash' => Hash::make($data['password'])]);
+
+        if ($user->email_verified_at) {
+            $user->update(['password' => Hash::make($data['password']), 'remember_token' => Str::random(60)]);
+            DB::table('sessions')->where('user_id', $user->id)->delete();
+            $user->notify(new SecurityAlertNotification('Your Hapsay password was changed', ['When' => now()->toDayDateTimeString().' '.config('app.timezone')]));
+            Auth::login($user);
+            $request->session()->regenerate();
+
+            return back()->with('status', 'Your password has been changed.');
+        }
+
+        $this->createChange($user, 'password', ['password_hash' => Hash::make($data['password'])]);
 
         return back()->with('status', 'Check your email to confirm the password change.');
     }

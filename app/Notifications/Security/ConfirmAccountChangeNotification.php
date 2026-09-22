@@ -26,7 +26,9 @@ class ConfirmAccountChangeNotification extends Notification
         ]);
         $type = $this->change->type === 'password' ? 'password' : 'username';
 
-        return (new MailMessage)->subject("Confirm your Hapsay {$type} change")
+        return (new MailMessage)
+            ->from(config('mail.from.address'), config('mail.from.name'))
+            ->subject("Confirm your Hapsay {$type} change")
             ->view(['emails.security.confirm-change', 'emails.security.confirm-change-text'], compact('url', 'type'));
     }
 }

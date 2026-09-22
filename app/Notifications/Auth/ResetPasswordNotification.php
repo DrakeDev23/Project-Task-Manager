@@ -14,6 +14,7 @@ class ResetPasswordNotification extends ResetPassword
 
         return (new MailMessage)
             ->subject('Reset your Hapsay password')
+            ->from(config('mail.from.address'), config('mail.from.name'))
             ->view(['emails.auth.reset-password', 'emails.auth.reset-password-text'], compact('url', 'expires'));
     }
 }
