@@ -101,10 +101,16 @@
                                             Edit
                                         </a>
 
-                                        <form method="POST" action="{{ route('categories.destroy', $category) }}" onsubmit="return confirm('Delete this category and remove it from your tasks?');">
+                                        <form method="POST" action="{{ route('categories.destroy', $category) }}">
                                             @csrf
                                             @method('DELETE')
-                                            <button type="submit" class="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-100">
+                                            <button
+                                                type="button"
+                                                data-delete-trigger
+                                                data-delete-title="Delete category?"
+                                                data-delete-message="“{{ $category->name }}” will be removed and unlinked from your tasks. This cannot be undone."
+                                                class="rounded-xl border border-rose-200 bg-rose-50 px-3 py-2 text-sm font-semibold text-rose-600 transition hover:bg-rose-100"
+                                            >
                                                 Delete
                                             </button>
                                         </form>
@@ -123,5 +129,7 @@
             </div>
         </main>
     </div>
+
+    @include('partials.delete-modal')
 </body>
 </html>
