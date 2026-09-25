@@ -177,7 +177,15 @@
                                             <form method="POST" action="{{ route('tasks.destroy', $task) }}">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button type="submit" class="rounded-xl px-4 py-2.5 text-sm font-semibold text-rose-600 hover:bg-rose-50">Delete task</button>
+                                                <button
+                                                    type="button"
+                                                    data-delete-trigger
+                                                    data-delete-title="Delete task?"
+                                                    data-delete-message="“{{ $task->title }}” will be permanently deleted. This cannot be undone."
+                                                    class="rounded-xl px-4 py-2.5 text-sm font-semibold text-rose-600 hover:bg-rose-50"
+                                                >
+                                                    Delete task
+                                                </button>
                                             </form>
 
                                         </div>
@@ -209,5 +217,6 @@
 
     </div>
 
+    @include('partials.delete-modal')
 </body>
 </html>
