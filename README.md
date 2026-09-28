@@ -1,9 +1,10 @@
 # Personal Task Manager
 
-**Project Code:** WST21-PM-2026-SF
-**Student Name:** Zedrick Dwyn Manguilimotan
-**Course & Year:** BSIT Sec 4, 2nd Year
+**Project Code:** WST21-PM-2026-SF<br>
+**Student Name:** Zedrick Dwyn Manguilimotan<br>
+**Course & Year:** BSIT Sec 4, 2nd Year<br>
 **Database Used:** PostgreSQL
+
 
 ## Features
 
